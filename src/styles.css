@@ -1,0 +1,31 @@
+.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+button {
+             background: #3D94F6;
+            background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+            background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+            background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+            background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+            background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            color: #FFFFFF;
+            font-family: Open Sans;
+            font-size: 14px;
+            font-weight: 100;
+            padding: 5px;
+            -webkit-box-shadow: 1px 1px 5px 0 #000000;
+            -moz-box-shadow: 1px 1px 5px 0 #000000;
+            box-shadow: 1px 1px 5px 0 #000000;
+            text-shadow: 1px 1px 5px #000000;
+            border: solid #337FED 1px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+        }
