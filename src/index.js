@@ -1,4 +1,4 @@
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { PixabayAPI } from './fetch_img';
 import createGalleryCard from './gallery_list.hbs'
 
@@ -14,16 +14,16 @@ console.log(galleryListEl);
 const pixabayApi = new PixabayAPI;
 loadMoreBtnEl.classList.add('is-hidden');
 
-const hideElement = (totalPages, page) => {
-    if (totalPages === page || totalPages === 0) {
-         DOMEl.classList.add('is-hidden');
-                return;
-    }
-}
+// const hideElement = (totalPages, page) => {
+//     if (totalPages === page || totalPages === 0) {
+//          DOMEl.classList.add('is-hidden');
+//                 return;
+//     }
+// }
 
 async function handleSearchFormSubmit(event) {
     event.preventDefault();
-
+    console.log(event.target.searchQuery);
     const inputEl = event.target.searchQuery;
 
     try {
@@ -38,7 +38,7 @@ async function handleSearchFormSubmit(event) {
         const { data } = await pixabayApi.fetchPhoto();
         
         if (!data.hits.length) {
-            console.log('Images not found');
+            Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             return;
         }
 
@@ -50,17 +50,22 @@ async function handleSearchFormSubmit(event) {
     }
 };
 
-const handleLoadMoreBtnClick = async () => {
+const handleLoadMoreBtnClick = async (event) => {
     pixabayApi.page += 1;
-    const { data } = pixabayApi.fetchPhoto();
+    
+    try {
+        const { data } = await pixabayApi.fetchPhoto();
 
-    if (data.hits.length === 0) {
-        loadMoreBtnEl.classList.add('is-hidden');
-        return;
-    }
+        if (!data.hits.length) {
+            loadMoreBtnEl.classList.add('is-hidden');
+            return;
+        }
 
-    galleryListEl.insertAdjacentHTML('beforeend', createGalleryCard(data.hits));
+        galleryListEl.insertAdjacentHTML('beforeend', createGalleryCard(data.hits));
+    } catch (error) {
+        
     }
+}
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 loadMoreBtnEl.addEventListener('click', handleLoadMoreBtnClick);

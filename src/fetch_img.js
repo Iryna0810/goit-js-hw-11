@@ -27,11 +27,7 @@ export class PixabayAPI {
     
             const response = await axios.get(`${this.#BASE_URL}/?${searchParameters}`);
             console.log(response);
-        
-            if (response.data.total === 0) {
-                throw new Error(`Found: ${response.data.total} result`);
-            }
-        // const result = response.j
+            
             return response;
 
         } catch (error) {
