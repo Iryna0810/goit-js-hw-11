@@ -24,14 +24,11 @@ export class PixabayAPI {
         });
 
         try {
-    
-            const response = await axios.get(`${this.#BASE_URL}/?${searchParameters}`);
-            console.log(response);
-            
-            return response;
-
-        } catch (error) {
-            console.error(error);
+            return await axios.get(`${this.#BASE_URL}/?${searchParameters}`);
+        }
+        
+        catch (error) {
+            throw new Error(error.message);
         }
     };
 }
